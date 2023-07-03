@@ -6,31 +6,35 @@
  * @av: double pointer array
  * Return: 0
  */
+char *argstostr(int ac, char **av)
+{
+	int i, n, r = 0, l = 0;
+	char *str;
 
-char *argstostr(int ac, char **av) {
-    if (ac == 0 || av == NULL) {
-        return (NULL);
-    }
+	if (ac == 0 || av == NULL)
+		return (NULL);
 
-    int total_length = 0;
-    for (int i = 0; i < ac; i++) {
-        total_length += strlen(av[i]) + 1; // Add 1 for the newline character
-    }
+	for (i = 0; i < ac; i++)
+	{
+		for (n = 0; av[i][n]; n++)
+			l++;
+	}
+	l += ac;
 
-    char *result = (char *)malloc(total_length * sizeof(char));
-    if (result == NULL) {
-        return (NULL);
-    }
-
-    int current_index = 0;
-    for (int i = 0; i < ac; i++) {
-        strcpy(result + current_index, av[i]);
-        current_index += strlen(av[i]);
-        result[current_index] = '\n';
-        current_index++;
-    }
-
-    result[total_length - 1] = '\0';
-
-    return (result);
+	str = malloc(sizeof(char) * l + 1);
+	if (str == NULL)
+		return (NULL);
+	for (i = 0; i < ac; i++)
+	{
+	for (n = 0; av[i][n]; n++)
+	{
+		str[r] = av[i][n];
+		r++;
+	}
+	if (str[r] == '\0')
+	{
+		str[r++] = '\n';
+	}
+	}
+	return (str);
 }
