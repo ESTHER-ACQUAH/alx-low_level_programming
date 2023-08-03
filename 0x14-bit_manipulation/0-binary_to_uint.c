@@ -24,4 +24,3 @@ dec_val = (dec_val << 1) | (b[i] - '0');
 
 return (dec_val);
 }
-
